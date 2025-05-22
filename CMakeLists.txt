@@ -1762,8 +1762,11 @@ INSTALL(TARGETS ${INSTALLTARGS}
 )
 
 INSTALL(FILES
-	fteqw.desktop
+	org.fteqw.fteqw.desktop
 	DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications/")
+INSTALL(FILES
+	org.fteqw.fteqw.svg
+	DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps/")
 
 
 SET(FTE_MENU_SYS true CACHE BOOL "Compile System Menu.")
