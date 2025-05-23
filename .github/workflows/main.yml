@@ -175,7 +175,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install flatpak linter
-        run: flatpak install org.flatpak.Builder
+        run: flatpak install -y org.flatpak.Builder
       - name: Lint metadata and build manifest
         run: |
           echo "::group::Lint metainfo"
