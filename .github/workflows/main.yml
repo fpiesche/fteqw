@@ -179,13 +179,13 @@ jobs:
         run: |
           echo "::group::Lint metainfo"
           flatpak-builder-lint \
-            --user-exceptions=linter-exceptions.json --exceptions \
+            --user-exceptions=dist/linux/linter-exceptions.json --exceptions \
             appstream ./dist/linux/org.fteqw.fteqw.metainfo.xml \
             || export FLATPAK_LINT_FAILED=1
           echo "::endgroup::"
           echo "::group::Lint Flatpak manifest"
           flatpak-builder-lint \
-            --user-exceptions=linter-exceptions.json --exceptions \
+            --user-exceptions=dist/linux/linter-exceptions.json --exceptions \
             manifest ./dist/linux/org.fteqw.fteqw.yml \
             || export FLATPAK_LINT_FAILED=1
           echo "::endgroup::"
@@ -203,7 +203,7 @@ jobs:
       - name: Lint build directory
         run: |
           flatpak-builder-lint \
-            --user-exceptions=linter-exceptions.json --exceptions \
+            --user-exceptions=dist/linux/linter-exceptions.json --exceptions \
             builddir build
 
       - name: Build bundle
