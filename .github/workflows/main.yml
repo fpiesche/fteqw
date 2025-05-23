@@ -194,30 +194,15 @@ jobs:
             exit 1
           fi
 
-      - name: Build
-        run: |
-          flatpak-builder build \
-            --install-deps-from=flathub --force-clean \
-            ./dist/linux/org.fteqw.fteqw.yml
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: org.fteqw.fteqw.${{ matrix.arch.name }}.${{ github.sha }}.flatpak
+          manifest-path: dist/linux/org.fteqw.fteqw.yml
+          cache-key: flatpak-builder-${{ matrix.arch }}-${{ github.sha }}
+          arch: ${{ matrix.arch }}
 
       - name: Lint build directory
         run: |
           flatpak-builder-lint \
             --user-exceptions=dist/linux/linter-exceptions.json --exceptions \
-            builddir build
-
-      - name: Build bundle
-        run: |
-          echo "::group::Export build directory to repo"
-          flatpak-builder --repo=repo build ./dist/linux/org.fteqw.fteqw.yml
-          echo "::endgroup::"
-          echo "::group::Build single-file bundle"
-          flatpak build-bundle \
-            ./repo org.fteqw.fteqw.${{ matrix.arch.name }}.flatpak org.fteqw.fteqw
-          echo "::endgroup::"
-
-      - name: Upload bundle as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: org.fteqw.fteqw.${{ matrix.arch.name }}.flatpak
-          path: org.fteqw.fteqw.${{ matrix.arch.name }}.flatpak
+            builddir flatpak_app
