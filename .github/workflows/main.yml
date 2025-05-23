@@ -178,15 +178,13 @@ jobs:
       - name: Lint metadata and build manifest
         run: |
           echo "::group::Lint metainfo"
-          flatpak run \
-            --command=flatpak-builder-lint org.flatpak.Builder \
+          flatpak-builder-lint \
             --user-exceptions=linter-exceptions.json --exceptions \
             appstream ./dist/linux/org.fteqw.fteqw.metainfo.xml \
             || export FLATPAK_LINT_FAILED=1
           echo "::endgroup::"
           echo "::group::Lint Flatpak manifest"
-          flatpak run \
-            --command=flatpak-builder-lint org.flatpak.Builder \
+          flatpak-builder-lint \
             --user-exceptions=linter-exceptions.json --exceptions \
             manifest ./dist/linux/org.fteqw.fteqw.yml \
             || export FLATPAK_LINT_FAILED=1
@@ -204,8 +202,7 @@ jobs:
 
       - name: Lint build directory
         run: |
-          flatpak run \
-            --command=flatpak-builder-lint org.flatpak.Builder \
+          flatpak-builder-lint \
             --user-exceptions=linter-exceptions.json --exceptions \
             builddir build
 
