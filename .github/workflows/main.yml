@@ -179,22 +179,39 @@ jobs:
       - name: Lint metadata and build manifest
         run: |
           echo "::group::Lint metainfo"
-          flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream ./dist/linux/org.fteqw.fteqw.metainfo.xml
+          flatpak run \
+            --command=flatpak-builder-lint org.flatpak.Builder \
+            appstream ./dist/linux/org.fteqw.fteqw.metainfo.xml \
+            || export FLATPAK_LINT_FAILED=1
           echo "::endgroup::"
           echo "::group::Lint Flatpak manifest"
-          flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest ./dist/linux/org.fteqw.fteqw.yml
+          flatpak run \
+            --command=flatpak-builder-lint org.flatpak.Builder \
+            manifest ./dist/linux/org.fteqw.fteqw.yml \
+            || export FLATPAK_LINT_FAILED=1
           echo "::endgroup::"
+          if [[ ! -z "$FLATPAK_LINT_FAILED" ]]; then
+            echo "::error::Metadata linting failed"
+            exit 1
+          fi
       - name: Build
-        run: flatpak-builder build --install-deps-from=flathub --force-clean ./dist/linux/org.fteqw.fteqw.yml
+        run: |
+          flatpak-builder build |
+            --install-deps-from=flathub --force-clean \
+            ./dist/linux/org.fteqw.fteqw.yml
       - name: Lint build directory
-        run: flatpak run --command=flatpak-builder-lint org.flatpak.Builder builddir build
+        run: |
+          flatpak run \
+            --command=flatpak-builder-lint org.flatpak.Builder \
+            builddir build
       - name: Build bundle
         run: |
           echo "::group::Export build directory to repo"
           flatpak-builder --repo=repo build ./dist/linux/org.fteqw.fteqw.yml
           echo "::endgroup::"
           echo "::group::Build single-file bundle"
-          flatpak build-bundle ./repo org.fteqw.fteqw.${{ matrix.arch.name }}.flatpak org.fteqw.fteqw
+          flatpak build-bundle \
+            ./repo org.fteqw.fteqw.${{ matrix.arch.name }}.flatpak org.fteqw.fteqw
           echo "::endgroup::"
       - name: Upload bundle as artifact
         uses: actions/upload-artifact@v4
