@@ -169,7 +169,7 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.arch.runner }}
     container:
-      image: ghcr.io/andyholmes/flatter/org.freedesktop.Sdk:22.08
+      image: ghcr.io/andyholmes/flatter/freedesktop:22.08
       options: --privileged
     steps:
       - name: Checkout
