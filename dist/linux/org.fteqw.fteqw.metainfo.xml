@@ -11,33 +11,34 @@
   <summary>Modern Quake source port</summary>
   <launchable type="desktop-id">org.fteqw.fteqw.desktop</launchable>
   <description>
-    <p>FTEQW is a highly versatile game engine originally based on QuakeWorld.</p>
-    <p>Features:
-        <ul>
-            <li>Single- and multiplayer support</li>
-            <li>Supports multiple games: Quake, QuakeWorld, Quake II, Quake III Arena, Hexen II, ...</li>
-            <li>A vast amount of map, model and image formats are supported</li>
-            <li>Advanced console, with descriptions and autocompletion</li>
-            <li>Plugin support, enabling use of FFMPEG, Bullet/ODE physics and more</li>
-            <li>Extensive suite of QuakeC/entity debugging features</li>
-            <li>Deep integration with FTEQCC, which can even be executed in-game</li>
-            <li>Support for split-screen local multiplayer</li>
-            <li>Voice-chat via Opus and Speex</li>
-            <li>Support for hundreds of players on a single server</li>
-            <li>Works on Windows, Linux, OpenBSD and more!</li>
-            <li>New features are added all the time in cooperation with modders!</li>
-        </ul>
-    </p>
+    <p>FTEQW is a highly versatile game engine originally based on QuakeWorld with support for
+      a number of Quake engine games.</p>
+    <p>Features:</p>
+    <ul>
+        <li>Single- and multiplayer support</li>
+        <li>Supports multiple games: Quake, QuakeWorld, Quake II, Quake III Arena, Hexen II, ...</li>
+        <li>A vast amount of map, model and image formats are supported</li>
+        <li>Advanced console, with descriptions and autocompletion</li>
+        <li>Plugin support, enabling use of FFMPEG, Bullet/ODE physics and more</li>
+        <li>Extensive suite of QuakeC/entity debugging features</li>
+        <li>Deep integration with FTEQCC, which can even be executed in-game</li>
+        <li>Support for split-screen local multiplayer</li>
+        <li>Voice-chat via Opus and Speex</li>
+        <li>Support for hundreds of players on a single server</li>
+        <li>Works on Windows, Linux, OpenBSD and more!</li>
+        <li>New features are added all the time in cooperation with modders!</li>
+    </ul>
   </description>
   <branding>
     <color type="primary" scheme_preference="light">#c2a6f4</color>
     <color type="primary" scheme_preference="dark">#1e191e</color>
   </branding>
   <provides>
-    <id>org.fteqw.fteqw</id>
     <binary>fteqw</binary>
-    <id>org.fteqw.fteqwcc</id>
     <binary>fteqcc</binary>
+    <binary>fteqccgui</binary>
+    <binary>ftemaster</binary>
+    <binary>qtv</binary>
   </provides>
   <supports>
     <control>gamepad</control>
