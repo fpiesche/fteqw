@@ -168,22 +168,33 @@ jobs:
             runner: ubuntu-24.04-arm
       fail-fast: false
     runs-on: ${{ matrix.arch.runner }}
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-5.15-23.08
+      options: --privileged
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install flatpak and flatpak linter
+      - name: Lint metadata and build manifest
         run: |
-          sudo apt-get update
-          sudo apt-get install -y flatpak flatpak-builder flatpak-builder-lint
-          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
-      - name: Lint metadata
-        run: |
+          echo "::group::Lint metainfo"
           flatpak run \
             --command=flatpak-builder-lint org.flatpak.Builder \
             --user-exceptions=linter-exceptions.json --exceptions \
-            appstream ./dist/linux/org.fteqw.fteqw.metainfo.xml
+            appstream ./dist/linux/org.fteqw.fteqw.metainfo.xml \
+            || export FLATPAK_LINT_FAILED=1
+          echo "::endgroup::"
+          echo "::group::Lint Flatpak manifest"
+          flatpak run \
+            --command=flatpak-builder-lint org.flatpak.Builder \
+            --user-exceptions=linter-exceptions.json --exceptions \
+            manifest ./dist/linux/org.fteqw.fteqw.yml \
+            || export FLATPAK_LINT_FAILED=1
+          echo "::endgroup::"
+          if [[ ! -z "$FLATPAK_LINT_FAILED" ]]; then
+            echo "::error::Metadata linting failed"
+            exit 1
+          fi
 
       - name: Build
         run: |
