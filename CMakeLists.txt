@@ -1763,17 +1763,17 @@ INSTALL(TARGETS ${INSTALLTARGS}
 
 IF(UNIX AND NOT APPLE)
 	INSTALL(FILES
-		dist/linux/org.fteqw.fteqw.desktop
+		${CMAKE_SOURCE_DIR}/dist/linux/org.fteqw.fteqw.desktop
 		DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications/")
 	INSTALL(FILES
-		dist/org.fteqw.fteqw.svg
+		${CMAKE_SOURCE_DIR}/dist/org.fteqw.fteqw.svg
 		DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps/")
 	INSTALL(FILES
-		dist/linux/org.fteqw.fteqw.metainfo.xml
+		${CMAKE_SOURCE_DIR}/dist/linux/org.fteqw.fteqw.metainfo.xml
 		DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo/")
-	INSTALL(FILES
-		games/*.fmf
-		DESTINATION "${CMAKE_INSTALL_PREFIX}/etc/xdg/fteqw/")
+	INSTALL(DIRECTORY ${CMAKE_SOURCE_DIR}/games
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/etc/xdg/fteqw"
+		FILES_MATCHING PATTERN "*.fmf")
 ENDIF()
 
 SET(FTE_MENU_SYS true CACHE BOOL "Compile System Menu.")
