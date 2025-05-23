@@ -175,8 +175,8 @@ jobs:
       - name: Install flatpak and flatpak linter
         run: |
           sudo apt-get update
-          sudo apt-get install -y flatpak flatpak-builder
-          flatpak install -y --user org.flatpak.Builder
+          sudo apt-get install -y flatpak flatpak-builder flatpak-builder-lint
+          flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Lint metadata
         run: |
