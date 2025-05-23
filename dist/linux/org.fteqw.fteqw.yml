@@ -172,9 +172,9 @@ modules:
       #     version-query: .tag_name | sub("^v"; "")
       #     url-query: .zipball_url
       # Patches to fix Flatpak sandbox compliance, currently WIP
-      # - type: patch
-      #   path: org.fteqw.fteqw.fixdownloads.patch
-      # - type: patch
-      #   path: org.fteqw.fteqw.fixhomedir.patch
+      - type: patch
+        path: org.fteqw.fteqw.fixdownloads.patch
+      - type: patch
+        path: org.fteqw.fteqw.fixhomedir.patch
     post-install:
       - install -Dm755 ${FLATPAK_BUILDER_BUILDDIR}/org.fteqw.fteqw.sh /app/bin/
