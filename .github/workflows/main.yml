@@ -168,15 +168,15 @@ jobs:
             runner: ubuntu-24.04-arm
       fail-fast: false
     runs-on: ${{ matrix.arch.runner }}
-    container:
-      image: ghcr.io/andyholmes/flatter/kde:5.15-23.08
-      options: --privileged
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install flatpak linter
-        run: flatpak install -y org.flatpak.Builder
+      - name: Install flatpak and flatpak linter
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+          flatpak install -y --user org.flatpak.Builder
 
       - name: Lint metadata
         run: |
