@@ -168,6 +168,9 @@ jobs:
             runner: ubuntu-24.04-arm
       fail-fast: false
     runs-on: ${{ matrix.arch.runner }}
+    container:
+      image: andyholmes/flatter:kde@5.15-23.08
+      options: --privileged
     steps:
       - name: Checkout
         uses: actions/checkout@v4
