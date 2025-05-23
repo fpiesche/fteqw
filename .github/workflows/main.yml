@@ -194,7 +194,8 @@ jobs:
             exit 1
           fi
 
-      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      - name: Build flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: org.fteqw.fteqw.${{ matrix.arch.name }}.${{ github.sha }}.flatpak
           manifest-path: dist/linux/org.fteqw.fteqw.yml
